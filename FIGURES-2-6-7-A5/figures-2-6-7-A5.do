@@ -1,6 +1,7 @@
 *** THIS DO-FILE TO CREATES FIGURES FOR MAIN PAPER (2, 6 AND 7) AND APPENDIX FIGURE A.5 ***
 *** PLEASE REFER TO "data-preperation-figures-2-6-7-A5.do" FOR ALL THE STEPS TO RE-CREATE THE DATASET ***
-use "Y:\Dropbox\EthnicFavouritism\AER-FINAL\replication\FIGURES\FIGURES-2-6-7-A5\data-preparation-figures-2-6-7-A5\figures-2-6-7-A5.dta", clear
+cd "."
+use "data-preparation-figures-2-6-7-A5/figures-2-6-7-A5.dta", clear
 
 ** MAIN PAPER FIGURES: 2, 6 AND 7 **
 * Figure 2: "Evolution of Political Regimes in Sub-Saharan Africa, 1963-2011"
