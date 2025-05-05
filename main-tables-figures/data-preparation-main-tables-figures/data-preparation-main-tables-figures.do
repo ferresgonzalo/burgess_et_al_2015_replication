@@ -1,5 +1,6 @@
 * Define the location of the main folder on your computer *
-global mypath "X:\EthnicFavouritism\AER-FINAL\replication\main-tables-figures\kenya_regressions\data-preparation-main-tables-figures\"
+set varabbrev on
+cd "."
 
 * This dofile creates the three data sets we use to run the main regressions for Kenya *
 * - One data set ("kenya_roads_exp.dta") with road development expenditure as the dependent variable
@@ -12,7 +13,7 @@ global mypath "X:\EthnicFavouritism\AER-FINAL\replication\main-tables-figures\ke
 
 *** Main structure of the panel data set: 41 districts x 49 years (1963-2011) = 2009 observations ***
 clear
-import excel "$mypath\observations.xls", sheet("Sheet1") firstrow
+import excel "observations.xls", sheet("Sheet1") firstrow
 label var province "Province"
 * There are 8 provinces
 label var distname_1979 "District name in 1979 (41 districts)"
@@ -22,50 +23,50 @@ label var year "Year"
 * There are 49 years 
 label var yearnum "Year number"
 sort distname_1979 year
-save "$mypath\kenya_roads", replace
+save "kenya_roads", replace
 
 *** Road development expenditure ***
 
 clear
-import excel "$mypath\road_development_expenditure.xls", sheet("Sheet1") firstrow
+import excel "road_development_expenditure.xls", sheet("Sheet1") firstrow
 sort distname_1979 year
-save "$mypath\road_development_expenditure", replace
+save "road_development_expenditure", replace
 
-use "$mypath\kenya_roads", clear
+use "kenya_roads", clear
 sort distname_1979 year
-merge distname_1979 year using "$mypath\road_development_expenditure"
+merge distname_1979 year using "road_development_expenditure"
 tab _m
 drop _m
 label var droadexp_tot "Development road expenditure (2000 USD) in year t"
 sort distname_1979 year
-save "$mypath\kenya_roads", replace
+save "kenya_roads", replace
 
 *** Ethnic shares ***
 clear
-import excel "$mypath\ethnic_shares.xls", sheet("Sheet1") firstrow
+import excel "ethnic_shares.xls", sheet("Sheet1") firstrow
 sort distname_1979 
-save "$mypath\ethnic_shares", replace
+save "ethnic_shares", replace
 
-use "$mypath\kenya_roads", clear
+use "kenya_roads", clear
 sort distname_1979
-merge distname_1979 using "$mypath\ethnic_shares"
+merge distname_1979 using "ethnic_shares"
 tab _m
 drop _m
 foreach X in kikuyu embu meru kamba luhya kisii coast luo kalenjin maasai turkana_samburu somali other {
 label var `X'_share62 "Population share of `X's in 1962" 
 }
 sort distname_1979 year
-save "$mypath\kenya_roads", replace
+save "kenya_roads", replace
 
 *** Controls: Demography ***
 clear
-import excel "$mypath\controls_demography.xls", sheet("Sheet1") firstrow
+import excel "controls_demography.xls", sheet("Sheet1") firstrow
 sort distname_1979
-save "$mypath\controls_demography", replace
+save "controls_demography", replace
 
-use "$mypath\kenya_roads", clear
+use "kenya_roads", clear
 sort distname_1979
-merge distname_1979 using "$mypath\controls_demography"
+merge distname_1979 using "controls_demography"
 tab _m
 drop _m
 label var pop1962 "Population in 1962"
@@ -78,18 +79,18 @@ label var pop1962_t "Population in 1962 x trend"
 label var area_t "Area in sq.km. x trend"
 label var urbrate1962_t "Urbanization rate in 1962 (towns > 2000 inh.) x trend"
 sort distname_1979 year
-save "$mypath\kenya_roads", replace
+save "kenya_roads", replace
 
 *** Controls: Economic Activity ***
 
 clear
-import excel "$mypath\controls_economic_activity.xls", sheet("Sheet1") firstrow
+import excel "controls_economic_activity.xls", sheet("Sheet1") firstrow
 sort distname_1979
-save "$mypath\controls_economic_activity", replace
+save "controls_economic_activity", replace
 
-use "$mypath\kenya_roads", clear
+use "kenya_roads", clear
 sort distname_1979
-merge distname_1979 using "$mypath\controls_economic_activity"
+merge distname_1979 using "controls_economic_activity"
 tab _m
 drop _m
 replace earnings = earnings / 1000000
@@ -110,18 +111,18 @@ label var earnings_t "Earnings (million 2000 USD) from wage employment in 1966 x
 label var wage_employment_t "Wage employment (thousands) in 1963"
 label var value_cashcrops_t "Value of cash crop production (million 2000 USD) in 1965 x trend"
 sort distname_1979 year
-save "$mypath\kenya_roads", replace
+save "kenya_roads", replace
 
 *** Controls: Economic Geography ***
 
 clear
-import excel "$mypath\controls_economic_geography.xls", sheet("Sheet1") firstrow
+import excel "controls_economic_geography.xls", sheet("Sheet1") firstrow
 sort distname_1979
-save "$mypath\controls_economic_geography", replace
+save "controls_economic_geography", replace
 
-use "$mypath\kenya_roads", clear
+use "kenya_roads", clear
 sort distname_1979
-merge distname_1979 using "$mypath\controls_economic_geography"
+merge distname_1979 using "controls_economic_geography"
 tab _m
 drop _m
 label var border "District bordering Uganda or Tanzania"
@@ -139,42 +140,42 @@ label var border_t "District bordering Uganda or Tanzania x trend"
 label var MomKam_t "District on the Mombasa-Kampala road x trend"
 label var dist2nairobi_t "Distance in km to Nairobi x trend"
 sort distname_1979 year
-save "$mypath\kenya_roads", replace
+save "kenya_roads", replace
 
 *** Elections 1992 ***
 
 clear
-import excel "$mypath\elections1992.xls", sheet("Sheet1") firstrow
+import excel "elections1992.xls", sheet("Sheet1") firstrow
 sort distname_1979
-save "$mypath\elections1992", replace
+save "elections1992", replace
 
-use "$mypath\kenya_roads", clear
+use "kenya_roads", clear
 sort distname_1979
-merge distname_1979 using "$mypath\elections1992"
+merge distname_1979 using "elections1992"
 tab _m
 drop _m
 label var margin_victory "Margin of victory between the winner and the runner-up party (%) in 1992 elections [d,1992]"
 label var votes_hh_index "Herfindahl Index of the voting shares of all parties in 1992 elections [d,1992]"
 * increase in hhindex = concentration = less competition
 sort distname_1979 year
-save "$mypath\kenya_roads", replace
+save "kenya_roads", replace
 
 *** Number of road articles in the Daily Nation and The Standard Newspapers ***
 
 clear
-import excel "$mypath\nation_standard.xls", sheet("stata") firstrow
+import excel "nation_standard.xls", sheet("stata") firstrow
 sort year
-save "$mypath\nation_standard", replace
+save "nation_standard", replace
 
-use "$mypath\kenya_roads", clear
+use "kenya_roads", clear
 sort year
-merge year using "$mypath\nation_standard"
+merge year using "nation_standard"
 tab _m
 drop _m
 label var nation "Number of Road Articles in The Daily Nation, 1985-2010"
 label var standard "Number of Road Articles in The Standard, 1985-2010"
 sort distname_1979 year
-save "$mypath\kenya_roads", replace
+save "kenya_roads", replace
 
 *** Counterfactuals ***
 
@@ -182,7 +183,7 @@ save "$mypath\kenya_roads", replace
 
 * We use "bilateral_connections_six_counterfactuals.xls" to obtain the ranking of the 1155 bilateral connections based on population
 clear
-import excel "$mypath\counterfactual_reallocation_exp_pop.xls", sheet ("Feuil1") firstrow
+import excel "counterfactual_reallocation_exp_pop.xls", sheet ("Feuil1") firstrow
 collapse (sum) length_km, by(distname_1979 year)
 drop if distname_1979 == ""
 drop if year == .
@@ -192,13 +193,13 @@ gen droadexp_tot2 = length_km/5286*100
 replace droadexp_tot2= 2870267451.105/100*length_km
 drop length
 sort distname_1979 year
-save "$mypath\counterfactual_exp_pop_raw", replace
+save "counterfactual_exp_pop_raw", replace
 
-use "$mypath\kenya_roads_exp", clear
+use "kenya_roads_exp", clear
 keep if year >= 1964 & year <= 2002
 keep distname_1979 year pop1962
 sort distname_1979 year
-merge distname_1979 year using "$mypath\counterfactual_exp_pop_raw"
+merge distname_1979 year using "counterfactual_exp_pop_raw"
 tab _m
 drop _m
 replace droad = 0 if droad == .
@@ -211,13 +212,13 @@ gen exp_dens_share = roadexp_share / pop1962_share
 ren exp_dens_share exp_dens_share_pop_6402
 keep distname_1979 year exp_dens_share_pop_6402 change_paved_exp_pop_6402
 sort distname_1979 year
-save "$mypath\counterfactual_exp_pop", replace
+save "counterfactual_exp_pop", replace
 
 * counterfactual (expenditure 1964-2002) for paved road construction, based on distance
 
 * We use "bilateral_connections_six_counterfactuals.xls" to obtain the ranking of the 1155 bilateral connections based on distance
 clear
-import excel "$mypath\counterfactual_reallocation_exp_dist.xls", sheet ("Feuil1") firstrow
+import excel "counterfactual_reallocation_exp_dist.xls", sheet ("Feuil1") firstrow
 collapse (sum) length_km, by(distname_1979 year)
 drop if distname_1979 == ""
 drop if year == .
@@ -227,13 +228,13 @@ gen droadexp_tot2 = length_km/5286*100
 replace length_km = 2870267451.105/100*length_km
 drop length
 sort distname_1979 year
-save "$mypath\counterfactual_exp_dist_raw", replace
+save "counterfactual_exp_dist_raw", replace
 
-use "$mypath\kenya_roads_exp", clear
+use "kenya_roads_exp", clear
 keep if year >= 1964 & year <= 2002
 keep distname_1979 year pop1962
 sort distname_1979 year
-merge distname_1979 year using "$mypath\counterfactual_exp_dist_raw" 
+merge distname_1979 year using "counterfactual_exp_dist_raw" 
 tab _m
 drop _m
 replace droad = 0 if droad == .
@@ -246,13 +247,13 @@ gen exp_dens_share = roadexp_share / pop1962_share
 ren exp_dens_share exp_dens_share_dist_6402
 keep distname_1979 year exp_dens_share_dist change_paved_exp_dist_6402
 sort distname_1979 year
-save "$mypath\counterfactual_exp_distance", replace
+save "counterfactual_exp_distance", replace
 
 * counterfactual (expenditure 1964-2002) for paved road construction, based on population and distance
 
 * We use "bilateral_connections_six_counterfactuals.xls" to obtain the ranking of the 1155 bilateral connections based on population and distance
 clear
-import excel "$mypath\counterfactual_reallocation_exp_mp.xls", sheet ("Feuil1") firstrow
+import excel "counterfactual_reallocation_exp_mp.xls", sheet ("Feuil1") firstrow
 collapse (sum) length_km, by(distname_1979 year)
 drop if distname_1979 == ""
 drop if year == .
@@ -262,13 +263,13 @@ gen droadexp_tot2 = length_km/5286*100
 replace length_km = 2870267451.105/100*length_km
 drop length
 sort distname_1979 year
-save "$mypath\counterfactual_exp_mp_raw", replace
+save "counterfactual_exp_mp_raw", replace
 
-use "$mypath\kenya_roads_exp", clear
+use "kenya_roads_exp", clear
 keep if year >= 1964 & year <= 2002
 keep distname_1979 year pop1962
 sort distname_1979 year
-merge distname_1979 year using "$mypath\counterfactual_exp_mp_raw" 
+merge distname_1979 year using "counterfactual_exp_mp_raw" 
 tab _m
 drop _m
 replace droad = 0 if droad == .
@@ -281,13 +282,13 @@ gen exp_dens_share = roadexp_share / pop1962_share
 ren exp_dens_share exp_dens_share_mp_6402
 keep distname_1979 year exp_dens_share_mp_6402 change_paved_exp_mp_6402
 sort distname_1979 year
-save "$mypath\counterfactual_exp_pop_distance", replace
+save "counterfactual_exp_pop_distance", replace
 
 *************************************************************************************
 
 *** Creation of dependent variables ***
 
-use "$mypath\kenya_roads", clear
+use "kenya_roads", clear
 
 * main dependent variable (expenditure): Share of road development expenditure [d,t] / population share [d,1962]
 
@@ -311,11 +312,11 @@ label var area_share "Area share of district d"
 gen exp_dens_share2 = roadexp_share / area_share
 label var exp_dens_share2 "Share of road development expenditure [d,t] / area share [d]"
 
-save "$mypath\kenya_roads", replace
+save "kenya_roads", replace
 
 *** Creation of main variable of interest ***
 
-use "$mypath\kenya_roads", clear
+use "kenya_roads", clear
 
 * Democracy [t]
 
@@ -454,15 +455,15 @@ order province distname* distnum year* exp_dens_share droadexp* roadexp* pop1962
 * Counterfactuals 
 
 sort distname_1979 year
-merge distname_1979 year using "$mypath\counterfactual_exp_pop"
+merge distname_1979 year using "counterfactual_exp_pop"
 tab _m
 drop _m
 sort distname_1979 year
-merge distname_1979 year using "$mypath\counterfactual_exp_distance"
+merge distname_1979 year using "counterfactual_exp_distance"
 tab _m
 drop _m
 sort distname_1979 year
-merge distname_1979 year using "$mypath\counterfactual_exp_pop_distance"
+merge distname_1979 year using "counterfactual_exp_pop_distance"
 tab _m
 drop _m
 
@@ -474,7 +475,7 @@ label var change_paved_exp_pop_6402 "Paved road construction (pop.counterfactual
 label var change_paved_exp_dist_6402 "Paved road construction (dist.counterfactual)[d,t]"
 label var change_paved_exp_mp_6402 "Paved road construction (pop.dist.counterfactual)[d,t]"
 
-save "$mypath\kenya_roads_exp", replace
+save "kenya_roads_exp", replace
 * creates "kenya_roads_exp", the data set with road development expenditure as the dependent variable
 * the data set is saved in the main folder
 
@@ -485,36 +486,36 @@ save "$mypath\kenya_roads_exp", replace
 
 
 clear
-import excel "$mypath\paved_road_construction.xls", sheet("Sheet1") firstrow
+import excel "paved_road_construction.xls", sheet("Sheet1") firstrow
 * since our maim dependent variable is the change in the stock of the paved road constructed, the year 1964 is not necessary, we drop it *
 drop if year < 1967 
 sort distname_1979 year
-save "$mypath\paved_road_construction", replace
+save "paved_road_construction", replace
 
-use "$mypath\kenya_roads_exp", clear
+use "kenya_roads_exp", clear
 sort distname_1979 
 keep province distname_1979 distnum pop1962 pop1962_share area area_share urbrate1962 earnings wage_employment value_cashcrops dist2nairobi border MomKam *share62
 bysort distname: keep if _n == 1
 sort distname
-save "$mypath\controls", replace
+save "controls", replace
 
 * counterfactual for paved road construction, based on population
 
 * We use "bilateral_connections_six_counterfactuals.xls" to obtain the ranking of the 1155 bilateral connections based on population
 clear
-import excel "$mypath\counterfactual_reallocation_pav_pop.xls", sheet ("Sheet1") firstrow
+import excel "counterfactual_reallocation_pav_pop.xls", sheet ("Sheet1") firstrow
 collapse (sum) length_km, by(distname_1979 year)
 drop if distname_1979 == ""
 drop if year == .
 sort distname_1979 year
 *collapse (sum) length_km
 *perfect, 5286 km
-save "$mypath\counterfactual_pav_pop_raw", replace
+save "counterfactual_pav_pop_raw", replace
 
-use "$mypath\kenya_roads_pav", clear
+use "kenya_roads_pav", clear
 keep distname_1979 year pop1962
 sort distname_1979 year 
-merge distname_1979 year using "$mypath\counterfactual_pav_pop_raw"
+merge distname_1979 year using "counterfactual_pav_pop_raw"
 drop if _m == 2
 tab _m
 drop _m
@@ -531,24 +532,24 @@ ren change_paved_sh change_paved_sh_pop
 ren length_km change_paved_pop
 keep distname_1979 year change_paved_sh_pop change_paved_pop
 sort distname_1979 year
-save "$mypath\counterfactual_pop", replace
+save "counterfactual_pop", replace
 
 * counterfactual for paved road construction, based on distance
 
 * We use "bilateral_connections_six_counterfactuals.xls" to obtain the ranking of the 1155 bilateral connections based on distance
 clear
-import excel "$mypath\counterfactual_reallocation_pav_dist.xls", sheet ("Feuil1") firstrow
+import excel "counterfactual_reallocation_pav_dist.xls", sheet ("Feuil1") firstrow
 collapse (sum) length_km, by(distname_1979 year)
 sort distname_1979 year
 *collapse (sum) length_km
 *perfect, 5286
 ren length_km changed_paved_dist
-save "$mypath\counterfactual_pav_dist_raw", replace
+save "counterfactual_pav_dist_raw", replace
 
-use "$mypath\kenya_roads_pav", clear
+use "kenya_roads_pav", clear
 keep distname_1979 year pop1962
 sort distname_1979 year 
-merge distname_1979 year using "$mypath\counterfactual_dist_raw"
+merge distname_1979 year using "counterfactual_dist_raw"
 drop if _m == 2
 tab _m
 drop _m
@@ -565,24 +566,24 @@ ren change_paved_sh change_paved_sh_dist
 ren length_km change_paved_dist
 keep distname_1979 year change_paved_sh_dist change_paved_dist
 sort distname_1979 year
-save "$mypath\counterfactual_distance", replace
+save "counterfactual_distance", replace
 
 * counterfactual for paved road construction, based on population and distance 
 
 * We use "bilateral_connections_six_counterfactuals.xls" to obtain the ranking of the 1155 bilateral connections based on population and distance
 clear
-import excel "$mypath\counterfactual_reallocation_pav_mp.xls", sheet ("Feuil1") firstrow
+import excel "counterfactual_reallocation_pav_mp.xls", sheet ("Feuil1") firstrow
 collapse (sum) length_km, by(distname_1979 year)
 sort distname_1979 year
 *collapse (sum) length_km
 *perfect, 5286
 ren length_km changed_paved_mp
-save "$mypath\counterfactual_pav_mp_raw", replace
+save "counterfactual_pav_mp_raw", replace
 
-use "$mypath\kenya_roads_pav", clear
+use "kenya_roads_pav", clear
 keep distname_1979 year pop1962
 sort distname_1979 year 
-merge distname_1979 year using "$mypath\counterfactual_mp_raw"
+merge distname_1979 year using "counterfactual_mp_raw"
 drop if _m == 2
 tab _m
 drop _m
@@ -599,13 +600,13 @@ ren change_paved_sh change_paved_sh_mp
 ren length_km change_paved_mp
 keep distname_1979 year change_paved_sh_mp change_paved_mp
 sort distname_1979 year
-save "$mypath\counterfactual_pop_distance", replace
+save "counterfactual_pop_distance", replace
 
 * creation of dependent variables and varianles of interest
 
-use "$mypath\paved_road_construction", clear
+use "paved_road_construction", clear
 sort distname_1979
-merge distname_1979 using "$mypath\controls"
+merge distname_1979 using "controls"
 tab _m
 drop _m
 
@@ -671,17 +672,17 @@ label var dist2nairobi_t "Distance in km to Nairobi x trend"
 * Counterfactuals 
 
 sort distname_1979 year
-merge distname_1979 year using "$mypath\counterfactual_pop"
+merge distname_1979 year using "counterfactual_pop"
 tab _m
 keep if _m == 3
 drop _m
 sort distname_1979 year
-merge distname_1979 year using "$mypath\counterfactual_distance"
+merge distname_1979 year using "counterfactual_distance"
 tab _m
 keep if _m == 3
 drop _m
 sort distname_1979 year
-merge distname_1979 year using "$mypath\counterfactual_pop_distance"
+merge distname_1979 year using "counterfactual_pop_distance"
 tab _m
 keep if _m == 3
 drop _m
@@ -696,7 +697,7 @@ label var change_paved_mp "Paved road construction (pop.dist.counterfactual)[d,t
 
 order province distname* distnum year* change_paved_share change_paved* chpaved_share km_paved pop1962_* change_paved_share2 area_* multiparty president* presshare* *share62 pop1962 area urbrate1962 earnings wage_employment value_cashcrops MomKam border dist2nairobi pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t MomKam_t border_t dist2nairobi_t
 
-save "$mypath\kenya_roads_pav", replace
+save "kenya_roads_pav", replace
 * creates "kenya_roads_pav", the data set with paved road construction as the dependent variable
 * the data set is saved in the main folder
 
@@ -706,25 +707,25 @@ save "$mypath\kenya_roads_pav", replace
 
 * We import the data set on the cabinet shares of 13 ethnic groups x 13 cabinet years = 169 observations
 clear
-import excel "$mypath\cabinet_shares.xls", sheet("Sheet1") firstrow
+import excel "cabinet_shares.xls", sheet("Sheet1") firstrow
 label var ethnic_group "Ethnic group"
 label var year "Cabinet Year (Election Year)"
 label var cabinet_sh "Ethnic share of cabinet [e,t]"
 order ethnic_group* year cabinet*
 sort ethnic_group year
-save "$mypath\cabinet_shares", replace
+save "cabinet_shares", replace
 
 * We import the data on the population shares of each ethnic group in 1962
 clear
-import excel "$mypath\ethnic_pop_shares.xls", sheet("Sheet1") firstrow
+import excel "ethnic_pop_shares.xls", sheet("Sheet1") firstrow
 sort ethnic_group 
-save "$mypath\ethnic_pop_shares", replace
+save "ethnic_pop_shares", replace
 
 * We create several dependent variables and variables of interest
 
-use "$mypath\cabinet_shares", clear
+use "cabinet_shares", clear
 sort ethnic_group
-merge ethnic_group using "$mypath\ethnic_pop_shares"
+merge ethnic_group using "ethnic_pop_shares"
 tab _m
 drop _m
 label var popshare1962 "Population share [e,1962]"
@@ -774,7 +775,7 @@ label var vpMP "VP-Coethnic group dummy [e,t] x Democracy dummy [t]"
 
 order ethnic_group year cabinet_index cabinet_sh popshare*
 
-save "$mypath\kenya_roads_cabinet", replace
+save "kenya_roads_cabinet", replace
 * creates "kenya_roads_cabinet", the data set with the cabinet share as the dependent variable
 * the data set is saved in the main folder
 
