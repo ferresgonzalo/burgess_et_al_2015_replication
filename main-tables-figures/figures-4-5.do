@@ -21,7 +21,7 @@ bysort year: egen pop1962_country = sum(pop1962)
 gen pop1962_share = pop1962/pop1962_country*100
 gen exp_dens_share = roadexp_share / pop1962_share
 keep if year >= 1963 & year <= 2011
-twoway (connected exp_dens_share year if president == 1, lwidth(medthick) msize(small)) (connected exp_dens_share year if president == 0, lwidth(medthick) msize(small) msymbol(square) lpattern(dash)), ytitle(Share of Road Dvt Expenditure Share [d,t] / Pop. Share [d, 1962], size(medsmall)) ytitle(, margin(small)) xtitle(., size(zero)) yline(1, lpattern(solid) lcolor(gs10)) xline(1969.916667 1992.916667) xline(1978.666667 2002.916667, lpattern(vshortdash)) legend(order(1 "Coethnic Districts" 2 "Non-Coethnic Districts")) xlabel(#5) graphregion(fcolor(white) lcolor(white) ifcolor(white) ilcolor(white))
+twoway (connected exp_dens_share year if president == 1, lwidth(medthick) msize(small)) (connected exp_dens_share year if president == 0, lwidth(medthick) msize(small) msymbol(square) lpattern(dash)), ytitle(Share of Road Dvt Expenditure Share [d,t] / Pop. Share [d, 1962], size(small)) ytitle(, margin(small)) xtitle(., size(zero)) yline(1, lpattern(solid) lcolor(gs10)) xline(1969.916667 1992.916667) xline(1978.666667 2002.916667, lpattern(vshortdash)) legend(order(1 "Coethnic Districts" 2 "Non-Coethnic Districts") col(2) position(0.2 0.8)) xlabel(#5) graphregion(fcolor(white) lcolor(white) ifcolor(white) ilcolor(white))
 graph export "figure_4.png", replace width(2620) height(1908)
 * We use graph editor to edit the figure (the y-title needs to be adjusted) *
 
@@ -44,7 +44,7 @@ bysort year: egen pop1962_country = sum(pop1962)
 gen pop1962_share = pop1962/pop1962_country*100
 gen exp_dens_share = roadexp_share / pop1962_share
 keep if year >= 1963 & year <= 2011
-twoway (connected exp_dens_share year if group == "1. Kikuyu Districts", lwidth(medthick) msize(small)) (connected exp_dens_share year if group == "2. Kalenjin Districts", lwidth(medthick) msize(small) msymbol(square) lpattern(dash)) (line exp_dens_share year if group == "3. Other Districts", lcolor(gs5) lwidth(medthick) lpattern(solid)), ytitle(Share of Road Dvt Expenditure Share [d,t] / Pop. Share [d, 1962], size(medsmall)) ytitle(, margin(small)) xtitle(., size(zero)) yline(1, lpattern(solid) lcolor(gs10)) xline(1969.916667 1992.916667) xline(1978.666667 2002.916667, lpattern(vshortdash)) legend(order(1 "Kikuyu Districts" 2 "Kalenjin Districts" 3 "Other Districts") rows(1) span) xlabel(#5) graphregion(fcolor(white) lcolor(white) ifcolor(white) ilcolor(white))
+twoway (connected exp_dens_share year if group == "1. Kikuyu Districts", lwidth(medthick) msize(small)) (connected exp_dens_share year if group == "2. Kalenjin Districts", lwidth(medthick) msize(small) msymbol(square) lpattern(dash)) (line exp_dens_share year if group == "3. Other Districts", lcolor(gs5) lwidth(medthick) lpattern(solid)), ytitle(Share of Road Dvt Expenditure Share [d,t] / Pop. Share [d, 1962], size(small)) ytitle(, margin(small)) xtitle(., size(zero)) yline(1, lpattern(solid) lcolor(gs10)) xline(1969.916667 1992.916667) xline(1978.666667 2002.916667, lpattern(vshortdash)) legend(order(1 "Kikuyu Districts" 2 "Kalenjin Districts" 3 "Other Districts") rows(1) span position(0.2 0.8)) xlabel(#5) graphregion(fcolor(white) lcolor(white) ifcolor(white) ilcolor(white))
 graph export "figure_5.png", replace width(2620) height(1908)
 * We use graph editor to edit the figure (the legend box and y-title need to be adjusted) *
 
