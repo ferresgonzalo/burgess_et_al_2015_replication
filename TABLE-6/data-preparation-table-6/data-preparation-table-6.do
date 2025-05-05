@@ -1,5 +1,5 @@
 * define the location of the main folder on your computer
-global mypath "X:\EthnicFavouritism\AER-FINAL\replication\TABLES\TABLE-6\data-preparation-table-6"
+cd "."
 
 
 **********************************************
@@ -7,7 +7,7 @@ global mypath "X:\EthnicFavouritism\AER-FINAL\replication\TABLES\TABLE-6\data-pr
 **********************************************
 
 * 1. We use the Easterly-Levine for the decade 1960s, 1970s and 1980s *
-use "$mypath\ELF_ORIGNAL.dta", clear
+use "ELF_ORIGNAL.dta", clear
 * we change the year variable to be in a XXXX format
 replace year=1960 if year==60
 replace year=1970 if year==70
@@ -21,14 +21,14 @@ replace code="GER" if code=="DEU"
 * we drop the countries with no ELF measure *
 drop if ELF==.
 sort code year
-save "$mypath\ELF_clean.dta", replace
+save "ELF_clean.dta", replace
 * this creates a version of the Easterly-Levine data set (1960s-1980s) that is ready for our purpose *
 
 *** 2. APPEND THE DATA FOR THE SUBSEQUENT DECADES, 1990s AND 2000s ***
 * Bring in income data from the Penn World Tables data set *
 * Append with the following two decades - 1990s and 2000s data to the Easterly-Levine data set *
 clear
-use "$mypath\pwt.dta"
+use "pwt.dta"
 keep if year == 1990 | year == 1999 | year == 2000 | year == 2009 
 rename country_isocode code
 gen period=.
@@ -69,13 +69,13 @@ rename ln_rgdpl lrgdp
 rename ln_rgdpl_sq lrgdpsq
 rename growth_pwt gyp
 sort code year
-save "$mypath\pwt_clean_gdp.dta", replace
+save "pwt_clean_gdp.dta", replace
 * this creates a version of the Easterly-Levine data set (1990s-2000s) with the addition of the subsequent decades *
 
 *** 3. WE COMBINE THE TWO DATA SETS (1960s-1980s and 1990s-2000s)
 clear
-use "$mypath\ELF_clean.dta"
-append using "$mypath\pwt_clean_gdp.dta"
+use "ELF_clean.dta"
+append using "pwt_clean_gdp.dta"
 sort code year
 bys code: egen N= count(_N)
 * Check that all the countries have 5 observations: 1960s, 1970s, 1980s, 1990s, 2000s 
@@ -108,12 +108,12 @@ by code: egen X_ELF60=mean(ELF60)
 drop ELF60
 rename X_ELF60 ELF60
 sort code year
-save "$mypath\ELF_clean_full.dta", replace
+save "ELF_clean_full.dta", replace
 
 ** 4. THE SCHOOLING VARIABLE **
 * Bring in the schooling data from Barro and Lee **
 clear
-use "$mypath\BL(2010)_MF1599_v1.2.dta"
+use "BL-2010-_MF1599_v1.2.dta"
 keep BLcode country year yr_sch WBcode region_code region_code
 drop if year==1950
 drop if year ==1955
@@ -142,10 +142,10 @@ drop av_yr_sch
 ** NOTE: we cannot use 2010 because that is the beginning of the decade and all our variables are averages for the decade **
 keep if year ==1990 |year ==2000
 sort code year
-save "$mypath\education.dta", replace
+save "education.dta", replace
 
 clear
-use "$mypath\BL(2010)_MF1599_v1.2.dta"
+use "BL-2010-_MF1599_v1.2.dta"
 keep BLcode country year yr_sch WBcode region_code region_code
 drop if year==1950
 drop if year ==1955
@@ -174,11 +174,11 @@ drop av_yr_sch
 ** We cannot use 2010 because that is the beginning of the decade and all our variables are averages for the decade **
 keep if year ==1960 | year == 1970 | year == 1980
 sort code year
-save "$mypath\education_gaps.dta", replace
+save "education_gaps.dta", replace
 
 * merge the schooling data set with the main data set *
-use "$mypath\ELF_clean_full.dta", clear
-merge code year using "$mypath\education.dta"
+use "ELF_clean_full.dta", clear
+merge code year using "education.dta"
 drop if _m==2
 replace lschool = ln_av_yr_sch_one if _m==3
 codebook lschool
@@ -188,11 +188,11 @@ codebook lschool if year == 2000
 drop _m 
 drop ln_av_yr_sch_one
 sort code year
-save "$mypath\ELF_clean_full.dta", replace
+save "ELF_clean_full.dta", replace
 
 ** CREATE THE DEMOCRACY VARIABLE **
 clear
-insheet using "$mypath\p4v2011_all.csv", delimiter(",")
+insheet using "p4v2011_all.csv", delimiter(",")
 keep if year >= 1960 & year <= 2000
 gen decade = "1960" if year >= 1960 & year <= 1969
 replace decade = "1970" if year >= 1970 & year <= 1979
@@ -225,10 +225,10 @@ replace country = "trinidad and tobago" if country == "trinidad"
 replace country = "yemen, republic of" if country == "yemen"
 replace country = "gambia, the" if country == "gambia"
 sort country year
-save "$mypath\democracy_ELF.dta", replace
+save "democracy_ELF.dta", replace
 
 * we merge the democracy data set with the main data set *
-use "$mypath\ELF_clean_full.dta", clear
+use "ELF_clean_full.dta", clear
 * we convert the "country" variable to lower case in order to have an unique country name
 replace country = lower(country)
 replace country = "congo, republic of" if country == "congo"
@@ -240,7 +240,7 @@ replace country = "taiwan, china" if country == "taiwan"
 replace country = "syrian arab republic" if country == "syria"
 replace country = "yemen, republic of" if country == "yemen"
 sort country year
-merge country year using "$mypath\democracy_ELF"
+merge country year using "democracy_ELF"
 tab _m
 tab country if _m == 1
 *tab country if _m == 2
@@ -258,11 +258,11 @@ gen nonauto = 1-auto if polity2 != .
 * we create a post-1990 dummy
 gen POST90=1 if year>=1990
 replace POST90=0 if year <1990
-save "$mypath\cross_country.dta", replace
+save "cross_country.dta", replace
 
 
 * Drop the variables that we do not use and label the variables we use *
-use "$mypath\cross_country.dta", clear
+use "cross_country.dta", clear
 drop obs DUM*
 label var code "Country Code"
 label var country "Country"
@@ -277,7 +277,7 @@ ren nonauto democ
 label var democ "Indicator variable if Country c is not an Autocracy in Decade t: Democracy [c,t]"
 label var lschool "Log of Schooling"
 keep code country year gyp ssa latinca lrgdp lrgdpsq ELF democ lschool
-save "$mypath\table-6.dta", replace
+save "table-6.dta", replace
 
 ****************************************************
 *** TO CREATE TABLE 6 PLEASE REFER TO TABLE-6.DO ***
