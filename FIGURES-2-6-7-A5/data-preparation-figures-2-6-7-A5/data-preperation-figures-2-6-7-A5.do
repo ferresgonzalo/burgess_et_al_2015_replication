@@ -1,5 +1,5 @@
 * define the location of the main folder on your computer
-global mypath "X:\EthnicFavouritism\AER-FINAL\replication\FIGURES\FIGURES-2-6-7-A5\Data-Preparation-Figures-2-6-7-A5"
+cd "."
 
 
 *** THIS DO FILE BRINGS TOGETHER ALL THE INDIVIDUAL DATASETS TO CONSTRUCT MAIN FIGURES 2, 6, 7 AND APPENDIX FIGURE A5 ***
@@ -9,7 +9,7 @@ global mypath "X:\EthnicFavouritism\AER-FINAL\replication\FIGURES\FIGURES-2-6-7-
 * SOURCE OF DATA: World Bank World Development Indicators 2013
 * LOCATION OF DATA: http://data.worldbank.org/data-catalog/world-development-indicators
 clear
-insheet using "$mypath\wdi_pop_all.csv"
+insheet using "wdi_pop_all.csv"
 ren countryname country
 drop if country == ""
 keep country y*
@@ -20,16 +20,16 @@ save pop_all, replace
 
 ***2. LIST OF COUNTRIES IN SUB-SAHARAN AFRICA OBTAINED FROM WORLD BANK AFRICA REGION PAGE ***
 *** LOCATION OF DATA: http://www.worldbank.org/en/region/afr ***
-use "$mypath\list_countries_africa", clear
+use "list_countries_africa", clear
 sort country
-save "$mypath\list_countries_africa", replace
+save "list_countries_africa", replace
 
 ***3. POLITY IV DATA FOR EACH COUNTRY c IN EACH YEAR t ***
 * SOURCE DATA: "p4v2011_all.csv"
 * SOURCE OF DATA: Polity IV (2013). Polity IV Project, Political Regime Characteristics and Transitions, 1800-2013. Vienna, VA: Center for Systemic Peace.  
 * LOCATION OF DATA: http://www.systemicpeace.org/inscrdata.html
 clear
-insheet using "$mypath\p4v2011_all.csv"
+insheet using "p4v2011_all.csv"
 
 
 ***4.  To merge with population data from WDU - rename country names *
@@ -68,13 +68,13 @@ sort country year
 ** Defined as an indicator variable equal to one if country c is not an autocracy (combined polity score superior or equal to -5) in decade t
 gen democracy = (polity2 >= -5) if polity2 != .
 sort country 
-merge country using "$mypath\list_countries_africa"
+merge country using "list_countries_africa"
 tab _m 
 gen ssa = 0
 replace ssa = 1 if _m == 3
 drop _m
 
-save "$mypath\polityIV_all", replace
+save "polityIV_all", replace
 
 *** 6. GDP PER CAPITA DATA FOR EACH COUNTRY c IN EACH YEAR t ***
 * SOURCE DATA: imports the raw data from "gdppc.csv"
@@ -83,23 +83,23 @@ save "$mypath\polityIV_all", replace
 * We use the World Bank's online interface to obtain per capita GDP (PPP, constant 2005 US$) for Kenya and the rest of Sub-Saharan Africa 
 
 clear
-insheet using "$mypath\gdppc.csv"
+insheet using "gdppc.csv"
 sort year
-save "$mypath\gdppc", replace
+save "gdppc", replace
 
 *** ETHNIC FAVORITISM, THETA ***
 *** 7. Imports theta, our estimate of ethnic favoritism, from "theta.csv" 
 *** SOURCE: AUTHOR'S CALCULATIONS
 clear
-insheet using "$mypath\theta.csv"
+insheet using "theta.csv"
 sort year
-save "$mypath\theta", replace
+save "theta", replace
 
 **************************************************************************************************************
 
 *** CREATION OF "COMBINED POLITY SCORE" FOR "KENYA" AND "SUB-SAHARAN AFRICA" (POPULATION-WEIGHTED AVERAGE) ***
 
-use "$mypath\polityIV_all", clear
+use "polityIV_all", clear
 gen indexpop = polity2*pop
 keep if ssa == 1
 drop if country == "Kenya"
@@ -109,14 +109,14 @@ gen polity_ssa = indexpop/pop
 keep year  polity_ssa
 sort year
 ** This creates a Sub-Saharan Africa dataset (and excludes Kenya)
-save "$mypath\polity_ssa", replace
+save "polity_ssa", replace
 
-use "$mypath\polityIV_all", clear
+use "polityIV_all", clear
 keep if country == "Kenya"
 gen polity_kenya = polity2
 keep year polity_kenya
 sort year
-save "$mypath\polity_kenya", replace
+save "polity_kenya", replace
 
 *** CREATION OF "GDP PER CAPITA GROWTH" FOR "KENYA" AND "SUB-SAHARAN AFRICA" (POPULATION-WEIGHTED AVERAGE) ***
 
@@ -125,56 +125,56 @@ save "$mypath\polity_kenya", replace
 * LOCATION OF DATA: http://data.worldbank.org/data-catalog/world-development-indicators
 * We use the World Bank's online interface to obtain per capita GDP () for Kenya and the rest of Sub-Saharan Africa 
 
-use "$mypath\gdppc", clear
+use "gdppc", clear
 gen growth_kenya = (gdppc00_kenya - gdppc00_kenya[_n-1])/gdppc00_kenya[_n-1]*100
 gen growth_ssa = (gdppc00_ssa - gdppc00_ssa[_n-1])/gdppc00_ssa[_n-1]*100
 gen gr_ssa_5yma = (growth_ssa[_n-2] + growth_ssa[_n-1] + growth_ssa + growth_ssa[_n+1] + growth_ssa[_n+2])/5
 gen gr_kenya_5yma = (growth_kenya[_n-2] + growth_kenya[_n-1] + growth_kenya + growth_kenya[_n+1] + growth_kenya[_n+2])/5
 keep year gr*5yma
 sort year 
-save "$mypath\gdpgrowth_kenya_ssa", replace
+save "gdpgrowth_kenya_ssa", replace
 
 *** CREATION OF "SHARE OF DEMOCRACIES" (POPULATION-WEIGHTED AVERAGES) FOR "SUB-SAHARAN AFRICA" AND "WORLD" ***
-use "$mypath\polityIV_all", clear
+use "polityIV_all", clear
 gen indexpop = democracy*pop
 collapse (sum) indexpop pop (count) numobs = indexpop, by(year)
 gen democ_world = indexpop/pop
 keep year democ_world
 sort year
-save "$mypath\democ_world", replace
+save "democ_world", replace
 
-use "$mypath\polityIV_all", clear
+use "polityIV_all", clear
 gen indexpop = democracy*pop
 keep if ssa == 1
 collapse (sum) indexpop pop (count) numobs = indexpop, by(year)
 gen democ_ssa = indexpop/pop
 keep year democ_ssa
 sort year
-save "$mypath\democ_ssa", replace
+save "democ_ssa", replace
 
 **************************************************************************************
 *** THE INDIVIDUAL DATASETS ARE NOW READY TO BE MERGED ***
 **************************************************************************************
 
-use "$mypath\democ_world", clear
+use "democ_world", clear
 sort year 
-merge year using "$mypath\democ_ssa"
+merge year using "democ_ssa"
 tab _m
 drop _m
 sort year 
-merge year using "$mypath\polity_ssa"
+merge year using "polity_ssa"
 tab _m
 drop _m
 sort year 
-merge year using "$mypath\polity_kenya"
+merge year using "polity_kenya"
 tab _m
 drop _m
 sort year 
-merge year using "$mypath\gdpgrowth_kenya_ssa"
+merge year using "gdpgrowth_kenya_ssa"
 tab _m
 drop _m
 sort year 
-merge year using "$mypath\theta"
+merge year using "theta"
 tab _m
 drop _m
 label var year "Year"
@@ -186,7 +186,7 @@ label var gr_kenya "Real GDP per capita growth in Kenya (%, 5-yr moving av.)"
 label var gr_ssa "Real GDP per capita growth in rest of Sub-Saharan Africa (%, 5-yr moving av.)"
 label var theta "Theta, our estimate of ethnic favoritism"
 order year polity* gr* theta democ* 
-save "$mypath\figures-2-6-7-A5", replace
+save "figures-2-6-7-A5", replace
 
 ****************************************************************************
 *** TO CREATE FIGURES 2, 6, 7 AND A5 PLEASE REFER TO FIGURES-2-6-7-A5.DO ***
