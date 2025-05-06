@@ -1,7 +1,6 @@
-Effect					
-)					
+Table 4					
 	(1)	(2)	(3)	(4)	(5)
-VARIABLES	exp_dens_share	exp_dens_share	exp_dens_share	exp_dens_share	exp_dens_share
+VARIABLES					
 					
 _Ikikuyu_1	-0.44	0.96**	0.66	-0.88	-0.00
 	[0.392]	[0.394]	[0.488]	[0.566]	[0.634]

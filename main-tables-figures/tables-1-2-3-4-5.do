@@ -182,27 +182,27 @@ use "data-preparation-main-tables-figures/kenya_roads_exp", clear
 
 * Column (1): Democracy 1963-1969
 xi: areg exp_dens_share i.kikuyu i.kalenjin if year >= 1963 & year <= 1969, absorb(year) robust cluster(distnum)
-outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace
+outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Table 4) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) ctitle(" ")
 test _Ikikuyu_1 = _Ikalenjin_1
 
 * Column (2): Autocracy 1970-1978
 xi: areg exp_dens_share i.kikuyu i.kalenjin if year >= 1970 & year <= 1978, absorb(year) robust cluster(distnum)
-outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) ctitle(" ")
 test _Ikikuyu_1 = _Ikalenjin_1
 
 * Column (3): Autocracy 1979-1992
 xi: areg exp_dens_share i.kikuyu i.kalenjin if year >= 1979 & year <= 1992, absorb(year) robust cluster(distnum)
-outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) ctitle(" ")
 test _Ikikuyu_1 = _Ikalenjin_1
 
 * Column (4): Democracy 1993-2002
 xi: areg exp_dens_share i.kikuyu i.kalenjin if year >= 1993 & year <= 2002, absorb(year) robust cluster(distnum)
-outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) ctitle(" ")
 test _Ikikuyu_1 = _Ikalenjin_1
 
 * Column (5): Democracy 2003-2011
 xi: areg exp_dens_share i.kikuyu i.kalenjin if year >= 2003, absorb(year) robust cluster(distnum)
-outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) ctitle(" ")
 test _Ikikuyu_1 = _Ikalenjin_1
 
 ****************************************************************************************************
