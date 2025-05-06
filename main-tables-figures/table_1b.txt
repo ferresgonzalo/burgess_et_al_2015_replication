@@ -1,0 +1,14 @@
+Table 1 - Panel B					
+	(1)	(2)	(3)	(4)	(5)
+VARIABLES					
+					
+president	1.57***	1.62***	1.64***	1.72***	1.55***
+	[0.486]	[0.490]	[0.487]	[0.489]	[0.510]
+presidentMP	-1.11*	-1.24*	-1.27**	-1.32**	-1.09*
+	[0.611]	[0.626]	[0.625]	[0.623]	[0.575]
+					
+					
+Observations	2,009	2,009	2,009	2,009	2,009
+Adjusted R-squared	0.109	0.115	0.115	0.119	0.082
+Robust standard errors clustered at the district level in parentheses					
+* significant at 10%; ** significant at 5%; *** significant at 1%					
