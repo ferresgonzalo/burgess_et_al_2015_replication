@@ -216,20 +216,20 @@ use "data-preparation-main-tables-figures/kenya_roads_exp", clear
 
 * Column (1) Panel A: no interaction, development expenditure
 xi: areg exp_dens_share president pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president using "table_5.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace
+outreg2 president using "table_5a.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Table 5 - Panel A) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president) ctitle(" ")
 
 * Column (1) Panel B: interaction, development expenditure
 xi: areg exp_dens_share president presidentMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president presidentMP using "table_5.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president presidentMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Table 5 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president presidentMP) ctitle(" ")
 test president + presidentMP = 0
 
 * Column (2) Panel A: no interaction, development expenditure, + VP
 xi: areg exp_dens_share president vp pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president vp using "table_5.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president vp using "table_5a.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president) ctitle(" ")
 
 * Column (2) Panel B: interaction, development expenditure, + VP
 xi: areg exp_dens_share president presidentMP vp vpMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president presidentMP vp vpMP using "table_5.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president presidentMP vp vpMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president presidentMP) ctitle(" ")
 test president + presidentMP = 0
 test vp + vpMP = 0
 
@@ -238,20 +238,20 @@ use "data-preparation-main-tables-figures/kenya_roads_cabinet", clear
 
 * Column (3) Panel A: no interaction, cabinet share
 xi: areg cabinet_index president i.year i.ethnic_group*year, absorb(ethnic_group) robust cluster(ethnic_group)
-outreg2 president using "table_5.xls", se nocons coefastr bdec(2) noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president using "table_5a.tex", se nocons coefastr bdec(2) noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president) ctitle(" ")
 
 * Column (3) Panel B: interaction, cabinet share
 xi: areg cabinet_index president presidentMP i.year i.ethnic_group*year, absorb(ethnic_group) robust cluster(ethnic_group)
-outreg2 president presidentMP using "table_5.xls", se nocons coefastr bdec(2) noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president presidentMP using "table_5b.tex", se nocons coefastr bdec(2) noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president presidentMP) ctitle(" ")
 test president + presidentMP = 0
 
 * Column (4) Panel A: no interaction, cabinet share, + VP
 xi: areg cabinet_index president vp i.year i.ethnic_group*year, absorb(ethnic_group) robust cluster(ethnic_group)
-outreg2 president vp using "table_5.xls", se nocons coefastr bdec(2) noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president vp using "table_5a.tex", se nocons coefastr bdec(2) noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president) ctitle(" ")
 
 * Column (4) Panel B: interaction, cabinet share, + VP
 xi: areg cabinet_index president presidentMP vp vpMP i.year i.ethnic_group*year, absorb(ethnic_group) robust cluster(ethnic_group)
-outreg2 president presidentMP vp vpMP using "table_5.xls", se nocons coefastr bdec(2) noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president presidentMP vp vpMP using "table_5b.tex", se nocons coefastr bdec(2) noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president presidentMP) ctitle(" ")
 test president + presidentMP = 0
 test vp + vpMP == 0
 
@@ -260,20 +260,20 @@ use "data-preparation-main-tables-figures/kenya_roads_exp", clear
 
 * Column (5) Panel A: no interaction, development expenditure, + Kamba-Luhya-Luo 
 xi: areg exp_dens_share president vp pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president vp using "table_5.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president vp using "table_5a.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president) ctitle(" ")
 
 * Column (5) Panel B: no interaction, development expenditure, + Kamba-Luhya-Luo
 xi: areg exp_dens_share president presidentMP kllMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president presidentMP kllMP using "table_5.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president presidentMP kllMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president presidentMP) ctitle(" ")
 test president + presidentMP = 0
 
 * Column (6) Panel A: no interaction, development expenditure, + swing district
 xi: areg exp_dens_share president vp pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president vp using "table_5.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president vp using "table_5a.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president) ctitle(" ")
 
 * Column (6) Panel B: no interaction, development expenditure, + swing district
 xi: areg exp_dens_share president presidentMP swing swingMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president presidentMP swing swingMP using "table_5.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president presidentMP swing swingMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president presidentMP) ctitle(" ")
 test president + presidentMP = 0
 
 
