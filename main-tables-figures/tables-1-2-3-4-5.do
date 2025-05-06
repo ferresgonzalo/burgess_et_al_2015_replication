@@ -145,29 +145,30 @@ use "data-preparation-main-tables-figures/kenya_roads_pav", clear
 
 * Column (1) Panel A: counterfactual based on population only
 xi: areg change_paved_sh_pop president pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president using "table_3.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace
-
-* Column (1) Panel B: counterfactual based on population only
-xi: areg change_paved_sh_pop president presidentMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president presidentMP using "table_3.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
-test president + presidentMP = 0
+outreg2 president using "table_3a.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Table 3 - Panel A) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president) ctitle(" ")
 
 * Column (2) Panel A: counterfactual based on distance only
 xi: areg change_paved_sh_dist president pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president presidentMP using "table_3.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
-
-* Column (2) Panel B: counterfactual based on distance only
-xi: areg change_paved_sh_dist president presidentMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president presidentMP using "table_3.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
-test president + presidentMP = 0
+outreg2 president presidentMP using "table_3a.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president) ctitle(" ")
 
 * Column (3) Panel A: counterfactual based on population and distance
 xi: areg change_paved_sh_mp president pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president presidentMP using "table_3.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president presidentMP using "table_3a.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president) ctitle(" ")
+
+
+* Column (1) Panel B: counterfactual based on population only
+xi: areg change_paved_sh_pop president presidentMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
+outreg2 president presidentMP using "table_3b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Table 3 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president presidentMP) ctitle(" ")
+test president + presidentMP = 0
+
+* Column (2) Panel B: counterfactual based on distance only
+xi: areg change_paved_sh_dist president presidentMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
+outreg2 president presidentMP using "table_3b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president presidentMP) ctitle(" ")
+test president + presidentMP = 0
 
 * Column (3) Panel B: counterfactual based on population and distance
 xi: areg change_paved_sh_mp president presidentMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president presidentMP using "table_3.xls", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Effect, "") nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append
+outreg2 president presidentMP using "table_3b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president presidentMP) ctitle(" ")
 test president + presidentMP = 0
 
 *******************************************************************************************************************************
