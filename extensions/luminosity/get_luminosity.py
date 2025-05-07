@@ -12,7 +12,7 @@ from rasterstats import zonal_stats
 
 
 # Set working directory
-os.chdir('/Users/gonzaloferres/GitHub/burgess_et_al_2015_replication/extensions/')
+os.chdir('/Users/gonzaloferres/GitHub/burgess_et_al_2015_replication/extensions/luminosity/')
     
 # Define CRS
 wgs84_crs = CRS.from_string('EPSG:4326') # WGS 1984
@@ -23,7 +23,7 @@ years = list(range(1992, 2017 + 1))
 for year in years:
     
     # Import lights data
-    lights[year] = rasterio.open('./luminosity/DMSP' + str(year) + '_bltcfix.tif')
+    lights[year] = rasterio.open('./DMSP' + str(year) + '_bltcfix.tif')
     crs_raster = lights[year].crs
     
     # Import Kenyan 41 districts shapefile 
@@ -50,5 +50,5 @@ for year in years:
     # export to Stata
     del kenya['geometry']
     kenya['year'] = year
-    kenya.to_stata('./luminosity/new_bltcfix_light_loc' + str(year) + '.dta', write_index = False)
+    kenya.to_stata('./new_bltcfix_light_loc' + str(year) + '.dta', write_index = False)
 

@@ -17,9 +17,9 @@ cd "."
 *******************************************************************************************
 
 * This is the data set with road development expenditure as the dependent variable
-use "../main-tables-figures/data-preparation-main-tables-figures/kenya_roads_exp", clear
+use "../../main-tables-figures/data-preparation-main-tables-figures/kenya_roads_exp", clear
 
-merge 1:1 distname_1979 year using luminosity/newlight_bltcfix_loc.dta, nogenerate
+merge 1:1 distname_1979 year using newlight_bltcfix_loc.dta, nogenerate
 
 * Column (1) Panel A: no interaction
 xi: areg new_bltcfix_lnlight_c president i.year, absorb(distnum) robust cluster(distnum)
@@ -51,13 +51,13 @@ outreg2 president presidentMP using "table_1a.tex", se nocons coefastr bdec(2) a
 *******************************************************************************************************************************
 
 * We use the data set with road development expenditure as the dependent variable
-use "../main-tables-figures/data-preparation-main-tables-figures/kenya_roads_exp", clear
+use "../../main-tables-figures/data-preparation-main-tables-figures/kenya_roads_exp", clear
 
-merge 1:1 distname_1979 year using luminosity/newlight_bltcfix_loc.dta, nogenerate
+merge 1:1 distname_1979 year using newlight_bltcfix_loc.dta, nogenerate
 
 * Column (4): Democracy 1993-2002
 xi: areg new_bltcfix_lnlight_c i.kikuyu i.kalenjin if year >= 1993 & year <= 2002, absorb(year) robust cluster(distnum)
-outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) ctitle(" ")
+outreg2 _Ikikuyu_1 _Ikalenjin_1 using "table_4.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) ctitle(" ")
 test _Ikikuyu_1 = _Ikalenjin_1
 
 * Column (5): Democracy 2003-2011

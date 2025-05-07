@@ -2,9 +2,9 @@ set more off
 
 cd "."
 
-use luminosity/new_bltcfix_light_loc1992.dta, replace
+use new_bltcfix_light_loc1992.dta, replace
 forvalues var = 1993/2017 {
-	append using luminosity/new_bltcfix_light_loc`var'.dta
+	append using new_bltcfix_light_loc`var'.dta
 }
 
 g new_bltcfix_lit=1 if new_bltcfix_light>0
@@ -25,4 +25,4 @@ drop if distname_1979 == "Lake Turkana"
 drop if distname_1979 == "Lake Victoria"
 drop if year > 2011
 
-save luminosity/newlight_bltcfix_loc.dta, replace
+save newlight_bltcfix_loc.dta, replace
