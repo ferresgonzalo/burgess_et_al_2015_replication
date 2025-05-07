@@ -1,0 +1,13 @@
+	(1)	(2)
+VARIABLES		
+		
+_Ikikuyu_1	1.92**	1.94**
+	[0.813]	[0.797]
+_Ikalenjin_1	-0.81	-1.40
+	[1.162]	[1.167]
+		
+		
+Observations	410	369
+Adjusted R-squared	0.074	0.106
+Robust standard errors clustered at the district level in parentheses		
+* significant at 10%; ** significant at 5%; *** significant at 1%		
