@@ -1,14 +1,14 @@
-Table 3 - Panel B			
-	(1)	(2)	(3)
-VARIABLES			
-			
-president	0.20	-0.57	0.34
-	[0.521]	[1.139]	[1.077]
-presidentMP	0.08	0.05	1.38
-	[1.390]	[1.342]	[2.244]
-			
-			
-Observations	410	410	410
-Adjusted R-squared	0.020	0.019	0.057
-Robust standard errors clustered at the district level in parentheses			
-* significant at 10%; ** significant at 5%; *** significant at 1%			
+Table 3 - Panel B				
+		(1)	(2)	(3)
+VARIABLES	LABELS			
+				
+president	Coethnic district [d,t]	0.20	-0.57	0.34
+		[0.521]	[1.139]	[1.077]
+presidentMP	Coethnic district [d,t] x D	0.08	0.05	1.38
+		[1.390]	[1.342]	[2.244]
+				
+				
+Observations		410	410	410
+Adjusted R-squared		0.020	0.019	0.057
+Robust standard errors clustered at the district level in parentheses				
+* significant at 10%; ** significant at 5%; *** significant at 1%				

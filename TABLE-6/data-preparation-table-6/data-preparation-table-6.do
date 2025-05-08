@@ -272,9 +272,9 @@ label var ssa "Indicator Variable for Sub-Saharan Africa"
 label var latinca "Indicator Variable for Latin America and the Caribbean"
 label var lrgdp "Log of Initial Income"
 label var lrgdpsq "(Log of Initial Income) Squared"
-label var ELF "Index of Ethnolinguistic Fractionalization of Country c in 1960: Ethnic [c,1960]"
+label var ELF "Ethnic [c,1960]"
 ren nonauto democ
-label var democ "Indicator variable if Country c is not an Autocracy in Decade t: Democracy [c,t]"
+label var democ "Democracy [c,t]"
 label var lschool "Log of Schooling"
 keep code country year gyp ssa latinca lrgdp lrgdpsq ELF democ lschool
 save "table-6.dta", replace

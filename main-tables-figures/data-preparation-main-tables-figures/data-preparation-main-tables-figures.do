@@ -322,19 +322,19 @@ use "kenya_roads", clear
 
 gen multiparty = 0
 replace multiparty = 1 if (year >= 1963 & year <= 1969) | (year >= 1993)
-label var multiparty "Democracy dummy [d,t]"
+label var multiparty "Democracy [d,t]"
 
 * Coethnic district [d,t]
 
 gen president = 0
 replace president = 1 if kikuyu_share62 >= 0.5 & ((year >= 1963 & year <= 1978) | year >= 2003)
 replace president = 1 if kalenjin_share62 >= 0.5 & year >= 1979 & year <= 2002
-label var president "Coethnic district dummy [d,t]"
+label var president "Coethnic district [d,t]"
 
-* Coethnic district [d,t] x Democracy [t]
+* Coethnic district [d,t] x D
 
 gen presidentMP = (president == 1 & multiparty == 1)
-label var presidentMP "Coethnic district dummy [d,t] x Democracy dummy [t]"
+label var presidentMP "Coethnic district [d,t] x D"
 
 * Coethnic share [d,t]
 
@@ -343,10 +343,10 @@ replace presshare = kikuyu_share62 if kikuyu_share62 >= 0.5 & ((year >= 1963 & y
 replace presshare = kalenjin_share62 if kalenjin_share62 >= 0.5 & year >= 1979 & year <= 2002
 label var presshare "Coethnic share [d,t]"
 
-* Coethnic share [d,t] x Democracy [t]
+* Coethnic share [d,t] x D
 
 gen presshareMP = presshare*multiparty
-label var presshareMP "Coethnic share [d,t] x Democracy dummy [t]"
+label var presshareMP "Coethnic share [d,t] x D"
 
 * Number of years coethnic district
 
@@ -356,7 +356,7 @@ replace president_yrs = year - 1979 if year >= 1979 & year <= 2002 & kalenjin_sh
 replace president_yrs = year + 15 - 2003 if year >= 2003 & kikuyu_share62 >= 0.5
 label var president_yrs "Number of years coethnic distrit [d,t]"
 
-* VP-Coethnic district [d,t]
+* VP-Coethnic [d,t]
 
 gen vp = 0
 replace vp = 1 if luo_share62 >= 0.50 & year >= 1964 & year <=1966
@@ -369,62 +369,62 @@ replace vp = 1 if luhya_share62 >= 0.50 & year >= 2003 & year <= 2005
 replace vp = 1 if luhya_share62 >= 0.50 & year >= 2006 & year <= 2008
 replace vp = 1 if luo_share62 >= 0.50 & year >= 2009 & year <= 2011
 replace vp = 1 if kamba_share62 >= 0.50 & year >= 2009 & year <= 2011
-label var vp "VP-Coethnic district dummy [d,t]"
+label var vp "VP-Coethnic [d,t]"
 
-* VP-Coethnic district [d,t] x Democracy [t]
+* VP-Coethnic [d,t] x D
 
 gen vpMP = (vp == 1 & multiparty == 1)
-label var vpMP "VP-Coethnic district dummy [d,t] x Democracy dummy [t]"
+label var vpMP "VP-Coethnic [d,t] x D"
 
 * Kikuyu district [d,1962]
 
 gen kikuyu = (kikuyu_share62 >= 0.5)
-label var kikuyu "Kikuyu district dummy [d,1962]"
+label var kikuyu "Kikuyu district [d,1962]"
 
 * Kalenjin district [d,1962]
 
 gen kalenjin = (kalenjin_share62 >= 0.5)
-label var kalenjin "Kalenjin district dummy [d,1962]"
+label var kalenjin "Kalenjin district [d,1962]"
 
 * Kamba district [d,1962]
 
 gen kamba = (kamba_share62 >= 0.5)
-label var kamba "Kamba district dummy [d,1962]"
+label var kamba "Kamba district [d,1962]"
 
-* Kamba district [d,1962] x Democracy [t]
+* Kamba district [d,1962] x D
 
 gen kambaMP = (kamba == 1 & multiparty == 1)
-label var kambaMP "Kamba district dummy [d,1962] x Democracy [t]"
+label var kambaMP "Kamba district [d,1962] x D"
 
 * Luhya district [d,1962]
 
 gen luhya = (luhya_share62 >= 0.5)
-label var luhya "Luhya district dummy [d,1962]"
+label var luhya "Luhya district [d,1962]"
 
-* Luhya district [d,1962] x Democracy [t]
+* Luhya district [d,1962] x D
 
 gen luhyaMP = (luhya == 1 & multiparty == 1)
-label var luhyaMP "Luhya district dummy [d,1962] x Democracy [t]"
+label var luhyaMP "Luhya district [d,1962] x D"
 
 * Luo district [d,1962]
 
 gen luo = (luo_share62 >= 0.5)
-label var luo "Luo district dummy [d,1962]"
+label var luo "Luo district [d,1962]"
 
-* Luo district [d,1962] x Democracy [t]
+* Luo district [d,1962] x D
 
 gen luoMP = (luo == 1 & multiparty == 1)
-label var luoMP "Luo district dummy [d,1962] x Democracy [t]"
+label var luoMP "Luo district [d,1962] x D"
 
 * Kamba-Luhya-Luo district [d,1962] 
 
 gen kll = (kamba_share62 >= 0.50 | luhya_share62 >= 0.50 | luo_share62 >= 0.50)
-label var kll "Kamba, Luhya or Luo district [d,1962]"
+label var kll "Kamba-Luhya-Luo district [d,1962]"
 
-* Kamba-Luhya-Luo district [d,1962] x Democracy [t] 
+* Kamba-Luhya-Luo district [d,1962] x D 
 
 gen kllMP = (kll == 1 & multiparty == 1)
-label var kllMP "Kamba, Luhya or Luo district [d,1962] x Democracy dummy [t]"
+label var kllMP "Kamba-Luhya-Luo x D"
 
 * Non-Coethnic majority < 80% [d,1962] 
 
@@ -433,22 +433,22 @@ gen swing = (maj_share62 < 0.80)
 drop maj_share62 
 label var swing "Non-Coethnic majority < 80% [d,1962]"
 
-* Non-Coethnic majority < 80% [d,1962] x Democracy [t] 
+* Non-Coethnic majority < 80% [d,1962] x D 
 
 gen swingMP = (swing == 1 & multiparty == 1)
 replace swingMP = 0 if presidentMP == 1
 * only swing group if not presidential already
-label var swingMP "Non-Coethnic majority < 80% [d,1962] x Democracy dummy [t]"
+label var swingMP "Non-Coethnic majority x D"
 
-* Margin of Victory [d,1992] x Democracy [t]
+* Margin of Victory [d,1992] x D
 
 gen margin_victoryMP = margin_victory*multiparty
-label var margin_victoryMP "Margin of victory between the winner and the runner-up party (%) in 1992 elections [d,1992] x Democracy [t]"
+label var margin_victoryMP "Margin of victory between the winner and the runner-up party (%) in 1992 elections [d,1992] x D"
 
-* Party Competition Herfindahl Index [d,1992] x Democracy [t]
+* Party Competition Herfindahl Index [d,1992] x D
 
 gen votes_hh_indexMP = votes_hh_index*multiparty
-label var votes_hh_indexMP "Herfindahl Index of the voting shares of all parties in 1992 elections [d,1992] x Democracy [t]"
+label var votes_hh_indexMP "Herfindahl Index of the voting shares of all parties in 1992 elections [d,1992] x D"
 
 order province distname* distnum year* exp_dens_share droadexp* roadexp* pop1962_* exp_dens_share2 area_* multiparty president* presshare* president_yrs vp* kikuyu* kalenjin* kamba luhya luo kll swing margin_victory votes_hh_index kambaMP luhyaMP luoMP kllMP swingMP margin_victoryMP votes_hh_indexMP *share62 pop1962 area urbrate1962 earnings wage_employment value_cashcrops MomKam border dist2nairobi nairobidist NaiKam highlands five_richest centroidx centroidy pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t MomKam_t border_t dist2nairobi_t
 
@@ -635,12 +635,12 @@ label var multiparty "Democracy [t]"
 gen president = 0
 replace president = 1 if kikuyu_share62 >= 0.5 & year >= 1963 & year <= 1979
 replace president = 1 if kalenjin_share62 >= 0.5 & year >= 1981 & year <= 2002
-label var president "Coethnic district dummy [d,t]"
+label var president "Coethnic district [d,t]"
 
-* Coethnic district dummy [d,t] x Democracy [t]
+* Coethnic district dummy [d,t] x D
  
 gen presidentMP = (president == 1 & multiparty == 1)
-label var presidentMP "Coethnic district dummy [d,t] x Democracy [t]"
+label var presidentMP "Coethnic district [d,t] x D"
 
 * Coethnic share [d,t]
 
@@ -649,10 +649,10 @@ replace presshare = kikuyu_share62 if kikuyu_share62 >= 0.5 & ((year >= 1963 & y
 replace presshare = kalenjin_share62 if kalenjin_share62 >= 0.5 & year >= 1979 & year <= 2002
 label var presshare "Coethnic share [d,t]"
 
-* Coethnic share [d,t] x Democracy [t]
+* Coethnic share [d,t] x D
 
 gen presshareMP = presshare*multiparty
-label var presshareMP "Coethnic share [d,t] x x Democracy [t]"
+label var presshareMP "Coethnic share [d,t] x x D"
 
 * Controls x trends
 
@@ -740,7 +740,7 @@ label var cabinet_index "Ethnic share of cabinet [e,t] / Population share [e,196
 
 gen multiparty = 0
 replace multiparty = 1 if (year >= 1963 & year <= 1966) | (year >= 1993)
-label var multiparty "Democracy dummy [t]" 
+label var multiparty "Democracy [t]" 
 
 * Coethnic group [e,t]
 
@@ -748,12 +748,12 @@ gen president = 0
 replace president = 1 if ethnic_group == "kikuyu" & year >= 1963 & year <= 1974
 replace president = 1 if ethnic_group == "kalenjin" & year >= 1979 & year <= 1998
 replace president = 1 if ethnic_group == "kikuyu" & year >= 2003 
-label var president "Coethnic group dummy [e,t]"
+label var president "Coethnic group [e,t]"
 
-* Coethnic group [e,t] x democracy [t]
+* Coethnic group [e,t] x D
 
 gen presidentMP = (president == 1 & multiparty == 1)
-label var presidentMP "Coethnic group dummy [e,t] x Democracy dummy [t]"
+label var presidentMP "Coethnic group [e,t] x D"
 
 * VP-Coethnic group [e,t]
 
@@ -768,10 +768,10 @@ replace vp = 1 if ethnic_group == "luhya" & year == 2005
 replace vp = 1 if (ethnic_group == "luo" | ethnic_group == "kamba") & year == 2008
 label var vp "VP-Coethnic group dummy [e,t]"
 
-* VP-Coethnic group [e,t] x democracy [t]
+* VP-Coethnic group [e,t] x D
  
 gen vpMP = vp*multiparty
-label var vpMP "VP-Coethnic group dummy [e,t] x Democracy dummy [t]"
+label var vpMP "VP-Coethnic group dummy [e,t] x D"
 
 order ethnic_group year cabinet_index cabinet_sh popshare*
 
