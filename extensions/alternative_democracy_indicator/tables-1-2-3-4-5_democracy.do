@@ -24,27 +24,30 @@ merge m:1 year using "../../FIGURES-2-6-7-A5/data-preparation-figures-2-6-7-A5/f
 gen auto = (polity_kenya <= -6)
 gen nonauto = 1-auto
 rename nonauto democ
+label var democ "Democracy (Polity IV)"
 
+sum democ multiparty
+pwcorr democ multiparty
 
 
 * Column (1) Panel B: interaction
 xi: areg exp_dens_share president democ multiparty i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Table 1 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket title(Table 1 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (2) Panel B: interaction, + (Controls: Population, Area, Urbanization Rate)*trend
 xi: areg exp_dens_share president democ multiparty pop1962_t area_t urbrate1962_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (3) Panel B : interaction, + (Additional Controls: Earnings, Employment, Cash Crops)*trend
 xi: areg exp_dens_share president democ multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (4) Panel B: interaction, + (Main Highway, Border, Dist. Nairobi)*trend
 xi: areg exp_dens_share president democ multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (5) Panel B: interaction, District time trends only
@@ -52,7 +55,7 @@ test president + democ = 0
 * and use tsset to create the district and year fixed effects
 tsset distnum year
 xi: xtreg exp_dens_share president democ multiparty i.distnum*year, robust cluster(distnum) fe
-outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_1b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 ***************************************************************************************
@@ -69,27 +72,27 @@ merge m:1 year using "../../FIGURES-2-6-7-A5/data-preparation-figures-2-6-7-A5/f
 gen auto = (polity_kenya <= -6)
 gen nonauto = 1-auto
 rename nonauto democ
-
+label var democ "Democracy (Polity IV)"
 
 
 * Column (1) Panel B: interaction
 xi: areg change_paved_share president democ  multiparty i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Table 2 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket title(Table 2 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (2) Panel B: interaction, + (Population, Area, Urbanization Rate)*trend
 xi: areg change_paved_share president democ multiparty pop1962_t area_t urbrate1962_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (3) Panel B : interaction, + (Earnings, Employment, Cash Crops)*trend
 xi: areg change_paved_share president democ multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (4) Panel B: interaction, + (Main Highway, Border, Dist. Nairobi)*trend
 xi: areg change_paved_share president democ multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (5) Panel B: interaction, District time trends only
@@ -97,7 +100,7 @@ test president + democ = 0
 * and use tsset to create the district and year fixed effects
 tsset distnum year
 xi: xtreg change_paved_share president democ multiparty i.distnum*year, robust cluster(distnum) fe
-outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_2b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 ****************************************************************************************************
@@ -114,21 +117,22 @@ merge m:1 year using "../../FIGURES-2-6-7-A5/data-preparation-figures-2-6-7-A5/f
 gen auto = (polity_kenya <= -6)
 gen nonauto = 1-auto
 rename nonauto democ
+label var democ "Democracy (Polity IV)"
 
 
 * Column (1) Panel B: counterfactual based on population only
 xi: areg change_paved_sh_pop president democ multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_3b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Table 3 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_3b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket title(Table 3 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (2) Panel B: counterfactual based on distance only
 xi: areg change_paved_sh_dist president democ multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_3b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_3b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (3) Panel B: counterfactual based on population and distance
 xi: areg change_paved_sh_mp president democ multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_3b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_3b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 ****************************************************************************************************
@@ -145,15 +149,17 @@ merge m:1 year using "../../FIGURES-2-6-7-A5/data-preparation-figures-2-6-7-A5/f
 gen auto = (polity_kenya <= -6)
 gen nonauto = 1-auto
 rename nonauto democ
+label var democ "Democracy (Polity IV)"
+
 
 * Column (1) Panel B: interaction, development expenditure
 xi: areg exp_dens_share president democ multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket title(Table 5 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket title(Table 5 - Panel B) nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) replace tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (2) Panel B: interaction, development expenditure, + VP
 xi: areg exp_dens_share president democ vp vpMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ vp vpMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ vp vpMP) ctitle(" ")
+outreg2 president democ vp vpMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ vp vpMP) ctitle(" ")
 test president + democ = 0
 test vp + vpMP = 0
 
@@ -168,12 +174,12 @@ rename nonauto democ
 
 * Column (3) Panel B: interaction, cabinet share
 xi: areg cabinet_index president democ i.year i.ethnic_group*year, absorb(ethnic_group) robust cluster(ethnic_group)
-outreg2 president democ using "table_5b.tex", se nocons coefastr bdec(2) noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
+outreg2 president democ using "table_5b.tex", se nocons coefastr bdec(2) noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ) ctitle(" ")
 test president + democ = 0
 
 * Column (4) Panel B: interaction, cabinet share, + VP
 xi: areg cabinet_index president democ vp vpMP i.year i.ethnic_group*year, absorb(ethnic_group) robust cluster(ethnic_group)
-outreg2 president democ vp vpMP using "table_5b.tex", se nocons coefastr bdec(2) noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ vp vpMP) ctitle(" ")
+outreg2 president democ vp vpMP using "table_5b.tex", se nocons coefastr bdec(2) noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ vp vpMP) ctitle(" ")
 test president + democ = 0
 test vp + vpMP == 0
 
@@ -185,15 +191,17 @@ merge m:1 year using "../../FIGURES-2-6-7-A5/data-preparation-figures-2-6-7-A5/f
 gen auto = (polity_kenya <= -6)
 gen nonauto = 1-auto
 rename nonauto democ
+label var democ "Democracy (Polity IV)"
+
 
 * Column (5) Panel B: no interaction, development expenditure, + Kamba-Luhya-Luo
 xi: areg exp_dens_share president democ kllMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ kllMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ kllMP) ctitle(" ")
+outreg2 president democ kllMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ kllMP) ctitle(" ")
 test president + democ = 0
 
 * Column (6) Panel B: no interaction, development expenditure, + swing district
 xi: areg exp_dens_share president democ swing swingMP multiparty pop1962_t area_t urbrate1962_t earnings_t wage_employment_t value_cashcrops_t i.MomKam|year i.border|year dist2nairobi_t i.year, absorb(distnum) robust cluster(distnum)
-outreg2 president democ swing swingMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni nolabel bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ swing swingMP) ctitle(" ")
+outreg2 president democ swing swingMP using "table_5b.tex", se nocons coefastr bdec(2) adjr2 noni label bracket nonotes addnote("", Robust standard errors clustered at the district level in parentheses, * significant at 10%; ** significant at 5%; *** significant at 1%) append tex(fragment) keep(president democ swing swingMP) ctitle(" ")
 test president + democ = 0
 
 
