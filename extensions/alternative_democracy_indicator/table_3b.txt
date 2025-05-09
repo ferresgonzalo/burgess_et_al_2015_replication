@@ -2,13 +2,13 @@ Table 3 - Panel B
 		(1)	(2)	(3)
 VARIABLES	LABELS			
 				
-president	Coethnic district [d,t]	0.22	-0.56	0.67
-		[0.439]	[1.214]	[1.031]
-democ	Democracy (Polity IV)	-0.83	-3.44	-2.83
-		[1.065]	[3.612]	[4.669]
+president	Coethnic district [d,t]	0.06	-0.54	-0.12
+		[0.461]	[1.248]	[0.785]
+president_democ	Coethnic district [d,t] x D	0.59	-0.06	3.08
+		[0.929]	[1.118]	[3.163]
 				
 				
 Observations		410	410	410
-Adjusted R-squared		0.023	0.022	0.060
+Adjusted R-squared		0.020	0.019	0.059
 Robust standard errors clustered at the district level in parentheses				
 * significant at 10%; ** significant at 5%; *** significant at 1%				
